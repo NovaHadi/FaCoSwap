@@ -13,7 +13,7 @@ University of Twente - The Netherlands
 """
 import streamlit as st
 import numpy as np
-import opencv-python-headless as cv2
+import cv2
 import dlib
 #import os
 
