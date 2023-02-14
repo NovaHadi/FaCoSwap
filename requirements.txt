@@ -1,3 +1,4 @@
 
 opencv-python-headless==4.1.0.25
+cmake==3.25.2
 dlib==19.24.0
