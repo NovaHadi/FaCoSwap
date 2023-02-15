@@ -169,6 +169,9 @@ if __name__ == '__main__':
         if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None :
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
+        elif add_selectbox2=='NDT' and crop_img1 is not None and crop_img2 is not None :
+            output, morphed_img, mask_img, delaunay_img1, delaunay_img2, all_points, ori_points = fpr.face_part_replacement(crop_img1, detector, predictor, crop_img2, 
+                               alpha=1, add_selectbox1)
         else:
             st.image(Image.open(file2))
         
@@ -176,6 +179,9 @@ if __name__ == '__main__':
         if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None:
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
             st.image(output)
+        elif add_selectbox2=='NDT' and crop_img1 is not None and crop_img2 is not None :
+            output, morphed_img, mask_img, delaunay_img2, delaunay_img1, all_points, ori_points = fpr.face_part_replacement(crop_img2, detector, predictor, crop_img1, 
+                               alpha=1, add_selectbox1)
         else:
             st.image(Image.open(file1))
         
