@@ -65,7 +65,7 @@ def crop_to_bbox(img, bbox):
     return img_cropped
 
 @st.cache_data()
-def detect_face_0(img, detector, predictor, padding, size):
+def detect_face_0(img, _detector, _predictor, padding, size):
         
     #img = dlib.load_rgb_image(input_dir)
     img_crop = img
