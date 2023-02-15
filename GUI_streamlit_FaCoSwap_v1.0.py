@@ -157,7 +157,11 @@ if __name__ == '__main__':
 
     col1, col2 = st.columns(2)
     if file1 and file2 and col1.button("Swap face 1"):
-        st.image(crop_img2)
+        if add_selectbox2=='NDTS':
+            output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, parts=add_selectbox1, detector, predictor)
+            st.image(output)
+        else:
+            st.image(crop_img2)
         
     if file1 and file2 and col2.button("Swap face 2"):
         st.image(crop_img1)
