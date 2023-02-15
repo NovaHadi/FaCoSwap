@@ -107,16 +107,22 @@ def detect_face_0(img, detector, predictor, padding, size):
         # align and crop the face         
         img_crop = dlib.get_face_chip(img, landmarks, size=size, padding=padding)
         return img_crop
-
     
-dlib_path = '/app/facoswap/dlib-models-master/'
-predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
-face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
-predictor = dlib.shape_predictor(predictor68_path)
-detector = dlib.get_frontal_face_detector()
+
+@st.cache_resource
+def load_model():
+    dlib_path = '/app/facoswap/dlib-models-master/'
+    predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
+    #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
+
+    predictor = dlib.shape_predictor(predictor68_path)
+    detector = dlib.get_frontal_face_detector()
+    return predictor, detector
 
 if __name__ == '__main__':
-
+    
+    predictor, detector = load_model()
+    
     add_selectbox1 = st.sidebar.selectbox(
         'Which part(s) would you like to swap?',
         ('eyes', 'eyebrows', 'nose', 'mouth', 'eyebrows-eyes-nose-mouth', 
