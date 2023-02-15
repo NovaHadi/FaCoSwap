@@ -108,13 +108,18 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         img_crop = dlib.get_face_chip(img, landmarks, size=size, padding=padding)
         return img_crop
     
+@st.cache_resource
+def load_model(dlib_path):
+    predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
+    #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
+    predictor = dlib.shape_predictor(predictor68_path)    
+    return predictor    
+
 
 if __name__ == '__main__':
 
     dlib_path = '/app/facoswap/dlib-models-master/'
-    predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
-    #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
-    predictor = dlib.shape_predictor(predictor68_path)    
+    predictor = load_model(dlib_path)
     detector = dlib.get_frontal_face_detector()
         
     add_selectbox1 = st.sidebar.selectbox(
