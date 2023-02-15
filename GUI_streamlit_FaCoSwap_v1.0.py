@@ -23,7 +23,7 @@ import face_morphing as mp
 
 from PIL import Image
 
-@st.cache()
+@st.cache_data()
 def rotate_bound(image, angle):
     # grab the dimensions of the image and then determine the center
     (h, w) = image.shape[:2]
@@ -43,7 +43,7 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
-@st.cache()
+@st.cache_data()
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
@@ -55,7 +55,7 @@ def rect_to_bb(rect):
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
-@st.cache()
+@st.cache_data()
 def crop_to_bbox(img, bbox):
     shape_img = img.shape[:2]
     bbox = np.clip(bbox, 0., 1.)
@@ -64,7 +64,7 @@ def crop_to_bbox(img, bbox):
     img_cropped = img[bbox[0]:bbox[2], bbox[1]:bbox[3], :] # crop
     return img_cropped
 
-@st.cache()
+@st.cache_data()
 def detect_face_0(img, detector, predictor, padding, size):
         
     #img = dlib.load_rgb_image(input_dir)
