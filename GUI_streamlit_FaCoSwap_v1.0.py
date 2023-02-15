@@ -110,8 +110,8 @@ def detect_face_0(img, detector, predictor, padding, size):
     
 
 @st.cache_resource
-def load_model():
-    dlib_path = '/app/facoswap/dlib-models-master/'
+def load_model(dlib_path):
+    
     predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
     #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
 
@@ -119,9 +119,12 @@ def load_model():
     detector = dlib.get_frontal_face_detector()
     return predictor, detector
 
+
+dlib_path = '/app/facoswap/dlib-models-master/'
+predictor, detector = load_model(dlib_path)
+
 if __name__ == '__main__':
     
-    predictor, detector = load_model()
     
     add_selectbox1 = st.sidebar.selectbox(
         'Which part(s) would you like to swap?',
