@@ -109,7 +109,7 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         return img_crop
 
 @st.cache_data
-def NDS_morphing(img1, img2, predictor):
+def NDS_morphing(img1, img2, _predictor):
     face1 = detector(img1, 2)
     landmarks1 = predictor(img1, face1[0])
     shape1 = face_utils.shape_to_np(landmarks1)
