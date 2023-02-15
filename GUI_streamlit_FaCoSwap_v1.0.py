@@ -138,7 +138,6 @@ if __name__ == '__main__':
     instructions = """ FaCoSwap is a face component swap tool for face analysis. 
         Upload your own images and click the swap button to change the face part! """
     st.write(instructions)
-    st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
     
     c1, c2 = st.columns(2)
     file1 = c1.file_uploader('Upload Face 1')
@@ -154,6 +153,7 @@ if __name__ == '__main__':
         c2.image(crop_img2)
     
     st.title(":curly_haired_person: Face component swapping ")
+    st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
 
     col1, col2 = st.columns(2)
     if file1 and file2 and col1.button("Swap face 1"):
