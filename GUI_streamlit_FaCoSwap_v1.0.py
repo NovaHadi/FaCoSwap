@@ -15,9 +15,10 @@ import streamlit as st
 import numpy as np
 import cv2
 import dlib
-#import os
+import face_replacement  as fpr
+import face_replacement_NDTS  as ndts
+import face_morphing as mp
 
-#import matplotlib.pyplot as plt
 #import general as gn
 
 from PIL import Image
@@ -108,10 +109,14 @@ def detect_face_0(img, detector, predictor, padding, size):
         return img_crop
 
     
+dlib_path = '/app/facoswap/dlib-models-master/'
+predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
+face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
+predictor = dlib.shape_predictor(predictor68_path)
+detector = dlib.get_frontal_face_detector()
 
 if __name__ == '__main__':
-    result1 = []
-    result2 = []
+
     add_selectbox1 = st.sidebar.selectbox(
         'Which part(s) would you like to swap?',
         ('eyes', 'eyebrows', 'nose', 'mouth', 'eyebrows-eyes-nose-mouth', 
@@ -128,19 +133,12 @@ if __name__ == '__main__':
         'Image resolution: ("150" means the image is resized into 150x150 pixels)',
         ('150', '320', '500') 
     )
-    
-    dlib_path = st.sidebar.text_input('DLIB path:', '/app/facoswap/dlib-models-master/')
-    if dlib_path:
-        predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
-        face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
-        predictor = dlib.shape_predictor(predictor68_path)
-        detector = dlib.get_frontal_face_detector()
-    
-    st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
+        
     st.title(':male-scientist: Welcome To FaCoSwap v1.0!')
     instructions = """ FaCoSwap is a face component swap tool for face analysis. 
         Upload your own images and click the swap button to change the face part! """
     st.write(instructions)
+    st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
     
     c1, c2 = st.columns(2)
     file1 = c1.file_uploader('Upload Face 1')
