@@ -5,16 +5,8 @@ Created on Tue Sep 13 01:56:20 2022
 @author: N.H.Lestriandoko
 """
 
-
-#from imutils import face_utils
-
 import numpy as np
-#import dlib
-#import matplotlib.pyplot as plt
-#import imageio
-#import os
 import cv2
-#import math
 from face_morphing import calculateDelaunayTriangles
 
 
@@ -28,8 +20,8 @@ def applyAffineTransform(src, srcTri, dstTri, size) :
 def manual_aligning_68_v3(img, shape, mean_points):
     size = img.shape
     rect = (0, 0, size[1], size[0])
-    # extract landmark points
 
+    # extract landmark points
     points1 = shape[0:60]
     points2 = mean_points[0:60]
     
