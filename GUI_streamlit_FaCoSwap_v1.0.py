@@ -145,26 +145,30 @@ if __name__ == '__main__':
         img1 = Image.open(file1)
         crop_img1 = detect_face_0(np.asarray(img1), detector, predictor, padding=0.6, size=int(add_selectbox3))
         c1.image(crop_img1)
+    else:
+        crop_img1 = None
     
     file2 = c2.file_uploader('Upload Face 2')
     if file2:
         img2 = Image.open(file2)
         crop_img2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
         c2.image(crop_img2)
+    else:
+        crop_img2 = None
     
     st.title(":curly_haired_person: Face component swapping ")
     st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
 
     col1, col2 = st.columns(2)
-    if crop_img1 is not None and crop_img2 is not None and col1.button("Swap face 1"):
-        if add_selectbox2=='NDTS' :
+    if file1 and file2 and col1.button("Swap face 1"):
+        if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None :
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
         else:
             st.image(crop_img2)
         
-    if crop_img1 is not None and crop_img2 is not None and col2.button("Swap face 2"):
-        if add_selectbox2=='NDTS' :
+    if  file1 and file2 and col2.button("Swap face 2"):
+        if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None:
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
             st.image(output)
         else:
