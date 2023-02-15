@@ -165,13 +165,13 @@ if __name__ == '__main__':
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
         else:
-            st.image(crop_img2)
+            st.image(Image.open(file2))
         
     if  file1 and file2 and col2.button("Swap face 2"):
         if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None:
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
             st.image(output)
         else:
-            st.image(crop_img1)
+            st.image(Image.open(file1))
         
 
