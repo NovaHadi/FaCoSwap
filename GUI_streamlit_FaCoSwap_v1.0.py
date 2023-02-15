@@ -17,11 +17,11 @@ import cv2
 import dlib
 import face_replacement  as fpr
 import face_replacement_NDTS  as ndts
-import face_morphing as mp
-
-#import general as gn
+#import face_morphing as mp
 
 from PIL import Image
+from face_alignment import manual_aligning_68_v3
+from imutils import face_utils
 
 @st.cache_data()
 def rotate_bound(image, angle):
@@ -107,6 +107,19 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         # align and crop the face         
         img_crop = dlib.get_face_chip(img, landmarks, size=size, padding=padding)
         return img_crop
+
+@st.cache_data
+def NDS_morphing(img1, img2, predictor):
+    face1 = detector(img1, 2)
+    landmarks1 = predictor(img1, face1[0])
+    shape1 = face_utils.shape_to_np(landmarks1)
+    
+    face2 = detector(img2, 2)
+    landmarks2 = predictor(img2, face2[0])
+    shape2 = face_utils.shape_to_np(landmarks2)
+    
+    output = manual_aligning_68_v3(img1, shape1, shape2)    
+    return output
     
 @st.cache_resource
 def load_model(dlib_path):
@@ -172,6 +185,9 @@ if __name__ == '__main__':
         elif add_selectbox2=='NDT' and crop_img1 is not None and crop_img2 is not None :
             output, morphed_img, mask_img, delaunay_img1, delaunay_img2, all_points, ori_points = fpr.face_part_replacement(crop_img1, detector, predictor, crop_img2, 1, add_selectbox1)
             st.image(output)
+        elif add_selectbox2=='NDS' and crop_img1 is not None and crop_img2 is not None :
+            output = NDS_morphing(crop_img1, crop_img2, predictor)
+            st.image(output)
         else:
             st.image(Image.open(file2))
         
@@ -181,6 +197,9 @@ if __name__ == '__main__':
             st.image(output)
         elif add_selectbox2=='NDT' and crop_img1 is not None and crop_img2 is not None :
             output, morphed_img, mask_img, delaunay_img2, delaunay_img1, all_points, ori_points = fpr.face_part_replacement(crop_img2, detector, predictor, crop_img1, 1, add_selectbox1)
+            st.image(output)
+        elif add_selectbox2=='NDS' and crop_img1 is not None and crop_img2 is not None :
+            output = NDS_morphing(crop_img2, crop_img1, predictor)
             st.image(output)
         else:
             st.image(Image.open(file1))
