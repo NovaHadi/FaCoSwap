@@ -109,7 +109,7 @@ def detect_face_0(img, detector, predictor, padding, size):
         return img_crop
     
 
-@st.cache_resource
+
 def load_model(dlib_path):
     predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
     #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'
