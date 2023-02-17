@@ -211,7 +211,12 @@ if __name__ == '__main__':
             st.image(output)
         else:
             #st.image(Image.open(file2))
-            st.write("Faces required! Please upload face 1 and face 2.")
+            if status1 and not status2:
+                st.write("Faces required! Please upload face 2.")
+            elif not status1 and status2:
+                st.write("Faces required! Please upload face 1.")
+            else:
+                st.write("Faces required! Please upload face 1 and face 2.")
         
     if  file1 and file2 and col2.button("Swap face 2"):
         if add_selectbox2=='NDTS' and status1 and status2 :
@@ -225,7 +230,12 @@ if __name__ == '__main__':
             st.image(output)
         else:
             #st.image(Image.open(file1))
-            st.write("Faces required! Please upload face 1 and face 2.")
+            if status1 and not status2:
+                st.write("Faces required! Please upload face 2.")
+            elif not status1 and status2:
+                st.write("Faces required! Please upload face 1.")
+            else:
+                st.write("Faces required! Please upload face 1 and face 2.")
         
     
     
