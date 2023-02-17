@@ -189,7 +189,7 @@ if __name__ == '__main__':
     if file2:
         img2 = Image.open(file2)
         crop_img2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
-        if crop_img1 is not None:
+        if crop_img2 is not None:
             c2.image(crop_img2)
         else:
             c2.write("No face detected!")
