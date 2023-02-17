@@ -22,6 +22,7 @@ import face_replacement_NDTS  as ndts
 from PIL import Image
 from face_alignment import manual_aligning_68_v3
 from imutils import face_utils
+from io import BytesIO
 
 @st.cache_data()
 def rotate_bound(image, angle):
@@ -204,8 +205,19 @@ if __name__ == '__main__':
         else:
             st.image(Image.open(file1))
         
-    st.title("Obtaining image from camera")
+    st.title(":camera: camera")
     picture = st.camera_input("Take a picture")
 
     if picture:
-        st.image(picture)
+        #st.image(picture)
+        buf = BytesIO()
+        Image.save(buf, format="JPEG")
+        byte_im = buf.getvalue()
+        
+        btn = st.download_button(
+              label="Download Image",
+              data=byte_im,
+              file_name="download-image.png",
+              mime="image/jpeg",
+              )
+
