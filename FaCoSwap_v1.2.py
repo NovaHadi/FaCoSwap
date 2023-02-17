@@ -205,17 +205,20 @@ if __name__ == '__main__':
         else:
             st.image(Image.open(file1))
         
-    st.title(":camera: camera")
-    picture = st.camera_input("Take a picture")
+    
+    cam = st.checkbox(":camera: camera")
 
-    if picture:
-        #st.image(picture)
-        byte_im = picture.getvalue()
-        
-        btn = st.download_button(
-              label="Download Image",
-              data=byte_im,
-              file_name="download-image.png",
-              mime="image/jpeg",
-              )
-
+    if cam:    
+        picture = st.camera_input("Take a picture")
+    
+        if picture:
+            #st.image(picture)
+            byte_im = picture.getvalue()
+            
+            btn = st.download_button(
+                  label="Download Image",
+                  data=byte_im,
+                  file_name="download-image.png",
+                  mime="image/jpeg",
+                  )
+    
