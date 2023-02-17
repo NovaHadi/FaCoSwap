@@ -210,9 +210,7 @@ if __name__ == '__main__':
 
     if picture:
         #st.image(picture)
-        buf = BytesIO()
-        picture.save(buf, format="JPEG")
-        byte_im = buf.getvalue()
+        byte_im = picture.getvalue()
         
         btn = st.download_button(
               label="Download Image",
