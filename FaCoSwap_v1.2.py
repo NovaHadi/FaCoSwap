@@ -67,31 +67,32 @@ def crop_to_bbox(img, bbox):
 
 @st.cache_data()
 def detect_face_0(img, _detector, _predictor, padding, size):
-        
+    status = True    
     #img = dlib.load_rgb_image(input_dir)
     img_crop = img
 
-    if img.shape[0]<img.shape[1]:
+    face_rects = detector(img, 2)
+    if len(face_rects)<1:
         img = rotate_bound(img, angle=90)
         face_rects = detector(img, 2)
         if len(face_rects)<1:
-            img = rotate_bound(img, angle=270)
+            img = rotate_bound(img, angle=90)
             face_rects = detector(img, 2)
-    else :
-        face_rects = detector(img, 2)
-        if len(face_rects)<1:
-            img = rotate_bound(img, angle=180)
-            face_rects = detector(img, 2)
+            if len(face_rects)<1:
+                img = rotate_bound(img, angle=90)
+                face_rects = detector(img, 2)
+
 
     if len(face_rects)<1:   
         gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         face_rects = detector(gray, 0)
         if len(face_rects)<1:   
+            status = False
             #print('[DETECTION FAILED] ')
-            return img
+            return img, status 
 
     if len(face_rects)>0:
-                            
+        status =True
         nFaces = len(face_rects)            
         if nFaces > 1:
             x1, y1, w1, h1 = rect_to_bb(face_rects[0])
@@ -107,7 +108,7 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         landmarks = predictor(img, face_rect)
         # align and crop the face         
         img_crop = dlib.get_face_chip(img, landmarks, size=size, padding=padding)
-        return img_crop
+        return img_crop, status
 
 @st.cache_data
 def NDS_morphing(img1, img2, _predictor):
@@ -177,16 +178,20 @@ if __name__ == '__main__':
     file1 = c1.file_uploader('Upload Face 1')
     if file1:        
         img1 = Image.open(file1)
-        crop_img1 = detect_face_0(np.asarray(img1), detector, predictor, padding=0.6, size=int(add_selectbox3))
+        crop_img1, status1 = detect_face_0(np.asarray(img1), detector, predictor, padding=0.6, size=int(add_selectbox3))
         c1.image(crop_img1)
+        if not status1:
+            c1.write("No face detected!")
     else:
         crop_img1 = None
     
     file2 = c2.file_uploader('Upload Face 2')
     if file2:
         img2 = Image.open(file2)
-        crop_img2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
+        crop_img2, status2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
         c2.image(crop_img2)            
+        if not status2:
+            c2.write("No face detected!")
     else:
         crop_img2 = None
     
