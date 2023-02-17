@@ -22,7 +22,7 @@ import face_replacement_NDTS  as ndts
 from PIL import Image
 from face_alignment import manual_aligning_68_v3
 from imutils import face_utils
-from io import BytesIO
+#from io import BytesIO
 
 @st.cache_data()
 def rotate_bound(image, angle):
@@ -178,7 +178,10 @@ if __name__ == '__main__':
     if file1:        
         img1 = Image.open(file1)
         crop_img1 = detect_face_0(np.asarray(img1), detector, predictor, padding=0.6, size=int(add_selectbox3))
-        c1.image(crop_img1)
+        if crop_img1 is not None:
+            c1.image(crop_img1)
+        else:
+            c1.write("No face detected!")
     else:
         crop_img1 = None
     
@@ -186,7 +189,11 @@ if __name__ == '__main__':
     if file2:
         img2 = Image.open(file2)
         crop_img2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
-        c2.image(crop_img2)
+        if crop_img1 is not None:
+            c2.image(crop_img2)
+        else:
+            c2.write("No face detected!")
+        
     else:
         crop_img2 = None
     
