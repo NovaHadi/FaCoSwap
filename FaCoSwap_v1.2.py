@@ -157,6 +157,21 @@ if __name__ == '__main__':
     instructions = """ FaCoSwap is a face component swap tool for face analysis. 
         Upload your own images and click the swap button to change the face part! """
     st.write(instructions)
+
+    cam = st.checkbox(":camera: camera")
+    if cam:    
+        picture = st.camera_input("Take a picture")
+    
+        if picture:
+            #st.image(picture)
+            byte_im = picture.getvalue()
+            
+            btn = st.download_button(
+                  label="Download Image",
+                  data=byte_im,
+                  file_name="download-image.png",
+                  mime="image/jpeg",
+                  )
     
     c1, c2 = st.columns(2)
     file1 = c1.file_uploader('Upload Face 1')
@@ -206,19 +221,4 @@ if __name__ == '__main__':
             st.image(Image.open(file1))
         
     
-    cam = st.checkbox(":camera: camera")
-
-    if cam:    
-        picture = st.camera_input("Take a picture")
-    
-        if picture:
-            #st.image(picture)
-            byte_im = picture.getvalue()
-            
-            btn = st.download_button(
-                  label="Download Image",
-                  data=byte_im,
-                  file_name="download-image.png",
-                  mime="image/jpeg",
-                  )
     
