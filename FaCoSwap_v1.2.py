@@ -87,8 +87,8 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         face_rects = detector(gray, 0)
         if len(face_rects)<1:   
-            print('[DETECTION FAILED] ')
-            return img
+            #print('[DETECTION FAILED] ')
+            return None
 
     if len(face_rects)>0:
                             
@@ -174,14 +174,18 @@ if __name__ == '__main__':
                   )
     
     c1, c2 = st.columns(2)
+    c_1, c_2 = st.columns(2)
+    c_1 = st.empty()
+    c_2 = st.empty()
     file1 = c1.file_uploader('Upload Face 1')
     if file1:        
         img1 = Image.open(file1)
         crop_img1 = detect_face_0(np.asarray(img1), detector, predictor, padding=0.6, size=int(add_selectbox3))
         if crop_img1 is not None:
-            c1.image(crop_img1)
+            c_1.image(crop_img1)
         else:
-            c1.write("No face detected!")
+            c_1.empty()
+            c_1.write("No face detected!")
     else:
         crop_img1 = None
     
@@ -190,10 +194,11 @@ if __name__ == '__main__':
         img2 = Image.open(file2)
         crop_img2 = detect_face_0(np.asarray(img2), detector, predictor, padding=0.6, size=int(add_selectbox3))
         if crop_img1 is not None:
-            c2.image(crop_img2)
+            c_2.image(crop_img2)
         else:
-            c2.write("No face detected!")
-        
+            c_2.empty()
+            c_2.write("No face detected!")
+            
     else:
         crop_img2 = None
     
