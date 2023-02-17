@@ -214,13 +214,13 @@ if __name__ == '__main__':
             st.write("Faces required! Please upload face 1 and face 2.")
         
     if  file1 and file2 and col2.button("Swap face 2"):
-        if add_selectbox2=='NDTS' and crop_img1 is not None and crop_img2 is not None:
+        if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
             st.image(output)
-        elif add_selectbox2=='NDT' and crop_img1 is not None and crop_img2 is not None :
+        elif add_selectbox2=='NDT' and status1 and status2 :
             output, morphed_img, mask_img, delaunay_img2, delaunay_img1, all_points, ori_points = fpr.face_part_replacement(crop_img2, detector, predictor, crop_img1, 1, add_selectbox1)
             st.image(output)
-        elif add_selectbox2=='NDS' and crop_img1 is not None and crop_img2 is not None :
+        elif add_selectbox2=='NDS' and status1 and status2 :
             output = NDS_morphing(crop_img2, crop_img1, predictor)
             st.image(output)
         else:
