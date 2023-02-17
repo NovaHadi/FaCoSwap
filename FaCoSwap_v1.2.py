@@ -88,7 +88,7 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         face_rects = detector(gray, 0)
         if len(face_rects)<1:   
             #print('[DETECTION FAILED] ')
-            return None
+            return img
 
     if len(face_rects)>0:
                             
