@@ -11,6 +11,26 @@ University of Twente - The Netherlands
 ===============================================
 
 """
+"""
+if add_selectbox2=='NDTS' and status1 and status2 and size1>0:
+    output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
+    st.image(output)
+elif add_selectbox2=='NDT' and status1 and status2 :
+    output, morphed_img, mask_img, delaunay_img1, delaunay_img2, all_points, ori_points = fpr.face_part_replacement(crop_img1, detector, predictor, crop_img2, 1, add_selectbox1)
+    st.image(output)
+elif add_selectbox2=='NDS' and status1 and status2 :
+    output = NDS_morphing(crop_img1, crop_img2, predictor)
+    st.image(output)
+else:
+    #st.image(Image.open(file2))
+    if status1 and not status2:
+        st.write("Faces required! Please upload face 2.")
+    elif not status1 and status2:
+        st.write("Faces required! Please upload face 1.")
+    else:
+        st.write("Faces required! Please upload face 1 and face 2.")
+"""
+
 import streamlit as st
 import numpy as np
 import cv2
@@ -128,7 +148,10 @@ def check_landmarks(img, _predictor):
     face = detector(img, 2)
     landmarks1 = predictor(img, face[0])
     shape = face_utils.shape_to_np(landmarks1)
-    return shape.size
+    for (i, (x, y)) in enumerate(shape):
+        cv2.circle(img, (x, y), 2, (0, 255, 100), -1) 
+    
+    return shape.size, img
     
 @st.cache_resource
 def load_model(dlib_path):
@@ -207,30 +230,12 @@ if __name__ == '__main__':
 
     col1, col2 = st.columns(2)
     if file1 and file2 and col1.button("Swap face 1"):
-        size1 = check_landmarks(crop_img1, predictor)
-        size2 = check_landmarks(crop_img2, predictor)
+        size1, lm_img1 = check_landmarks(crop_img1, predictor)
+        size2, lm_img2 = check_landmarks(crop_img2, predictor)
         
-        st.write(size1)
-        st.write(size2)
-        """
-        if add_selectbox2=='NDTS' and status1 and status2 and size1>0:
-            output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
-            st.image(output)
-        elif add_selectbox2=='NDT' and status1 and status2 :
-            output, morphed_img, mask_img, delaunay_img1, delaunay_img2, all_points, ori_points = fpr.face_part_replacement(crop_img1, detector, predictor, crop_img2, 1, add_selectbox1)
-            st.image(output)
-        elif add_selectbox2=='NDS' and status1 and status2 :
-            output = NDS_morphing(crop_img1, crop_img2, predictor)
-            st.image(output)
-        else:
-            #st.image(Image.open(file2))
-            if status1 and not status2:
-                st.write("Faces required! Please upload face 2.")
-            elif not status1 and status2:
-                st.write("Faces required! Please upload face 1.")
-            else:
-                st.write("Faces required! Please upload face 1 and face 2.")
-        """
+        st.image(lm_img1)
+        st.image(lm_img2)
+
     if  file1 and file2 and col2.button("Swap face 2"):
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
