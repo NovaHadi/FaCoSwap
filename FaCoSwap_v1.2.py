@@ -213,11 +213,11 @@ if __name__ == '__main__':
         avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
         avg_view = st.image(avg_img)
         if avg_view:
-            byte_im = avg_img.getvalue()
+            #byte_im = avg_view.getvalue()
             
             btn = st.download_button(
                   label="Download Image",
-                  data=byte_im,
+                  data=avg_img,
                   file_name="download-average-face.png",
                   mime="image/jpeg",
                   )            
