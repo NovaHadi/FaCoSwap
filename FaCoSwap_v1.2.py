@@ -23,7 +23,7 @@ import face_replacement_NDTS  as ndts
 from PIL import Image
 from face_alignment import manual_aligning_68_v3
 from imutils import face_utils
-#from io import BytesIO
+from io import BytesIO
 
 @st.cache_data()
 def rotate_bound(image, angle):
@@ -213,7 +213,9 @@ if __name__ == '__main__':
         avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
         avg_view = st.image(avg_img)
         if avg_view:
-            byte_im = avg_view.getvalue()
+            buf = BytesIO()
+            avg_view.save(buf, format="JPEG")
+            byte_im = buf.getvalue()
             
             btn = st.download_button(
                   label="Download Image",
