@@ -170,7 +170,7 @@ if __name__ == '__main__':
         Upload your own images and click the swap button to change the face part! """
     st.write(instructions)
 
-    cam = st.checkbox(":camera: camera")
+    cam = st.checkbox(":camera: Camera")
     if cam:    
         picture = st.camera_input("Take a picture")
     
