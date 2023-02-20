@@ -184,6 +184,21 @@ if __name__ == '__main__':
                   file_name="download-image.png",
                   mime="image/jpeg",
                   )
+    avg = st.checkbox(":full_moon_with_face: Average Face")
+    if avg:
+        avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
+        avg_view = st.image(avg_img)
+        if avg_view:
+            buf = BytesIO()
+            avg_img.save(buf, format="JPEG")
+            byte_im = buf.getvalue()
+            
+            btn = st.download_button(
+                  label="Download Image",
+                  data=byte_im,
+                  file_name="download-average-face.png",
+                  mime="image/jpeg",
+                  )            
     
     c1, c2 = st.columns(2)
     file1 = c1.file_uploader('Upload Face 1')
@@ -208,21 +223,6 @@ if __name__ == '__main__':
     
     st.title(":curly_haired_person: Face component swapping ")
     st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
-    avg = st.checkbox(":full_moon_with_face: Average Face")
-    if avg:
-        avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
-        avg_view = st.image(avg_img)
-        if avg_view:
-            buf = BytesIO()
-            avg_img.save(buf, format="JPEG")
-            byte_im = buf.getvalue()
-            
-            btn = st.download_button(
-                  label="Download Image",
-                  data=byte_im,
-                  file_name="download-average-face.png",
-                  mime="image/jpeg",
-                  )            
             
     col1, col2 = st.columns(2)
     if file1 and file2 and col1.button("Swap face 1"):
