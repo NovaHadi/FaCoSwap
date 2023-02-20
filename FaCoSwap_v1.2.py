@@ -184,7 +184,7 @@ if __name__ == '__main__':
                   file_name="download-image.png",
                   mime="image/jpeg",
                   )
-    avg = st.checkbox(":full_moon_with_face: Average Face")
+    avg = st.checkbox(":full_moon_with_face: Average Face (from 2000 images of FRGCv2)")
     if avg:
         avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
         avg_view = st.image(avg_img)
