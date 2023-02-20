@@ -215,7 +215,7 @@ if __name__ == '__main__':
             st.write("Landmarks are completely detected!")
         else:
             st.write("Landmarks are not completely detected!")
-        """
+            """
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
@@ -233,7 +233,7 @@ if __name__ == '__main__':
                 st.write("Faces required! Please upload face 1.")
             else:
                 st.write("Faces required! Please upload face 1 and face 2.")
-       """ 
+            """ 
     if  file1 and file2 and col2.button("Swap face 2"):
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
