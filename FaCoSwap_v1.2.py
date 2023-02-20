@@ -214,7 +214,7 @@ if __name__ == '__main__':
         avg_view = st.image(avg_img)
         if avg_view:
             buf = BytesIO()
-            avg_view.save(buf, format="JPEG")
+            avg_img.save(buf, format="JPEG")
             byte_im = buf.getvalue()
             
             btn = st.download_button(
