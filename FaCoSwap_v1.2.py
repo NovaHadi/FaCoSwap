@@ -208,7 +208,7 @@ if __name__ == '__main__':
     
     st.title(":curly_haired_person: Face component swapping ")
     st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
-    avg = st.checkbox(":download: Average Face")
+    avg = st.checkbox(":full_moon_with_face: Average Face")
     if avg:
         avg_img = Image.open('/app/facoswap/average-face/mean_face_FRGCv2_2000_part01-part04_060.png')
         avg_view = st.image(avg_img)
