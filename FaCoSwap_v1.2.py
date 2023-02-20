@@ -122,6 +122,17 @@ def NDS_morphing(img1, img2, _predictor):
     
     output = manual_aligning_68_v3(img1, shape1, shape2)    
     return output
+
+@st.cache_data
+def check_landmarks(img, _predictor):
+    face = detector(img, 2)
+    landmarks1 = predictor(img, face[0])
+    shape = face_utils.shape_to_np(landmarks1)
+    
+    if shape is not None:
+        return False
+    else:
+        return True
     
 @st.cache_resource
 def load_model(dlib_path):
@@ -200,6 +211,11 @@ if __name__ == '__main__':
 
     col1, col2 = st.columns(2)
     if file1 and file2 and col1.button("Swap face 1"):
+        if check_landmarks(crop_img1, predictor) and check_landmarks(crop_img2, predictor):
+            st.write("Landmarks are completely detected!")
+        else:
+            st.write("Landmarks are not completely detected!")
+        """
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
@@ -217,7 +233,7 @@ if __name__ == '__main__':
                 st.write("Faces required! Please upload face 1.")
             else:
                 st.write("Faces required! Please upload face 1 and face 2.")
-        
+       """ 
     if  file1 and file2 and col2.button("Swap face 2"):
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
