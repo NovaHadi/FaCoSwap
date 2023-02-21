@@ -18,7 +18,7 @@ import cv2
 import dlib
 import face_replacement  as fpr
 import face_replacement_NDTS  as ndts
-#import face_morphing as mp
+import wholeface_swap as wfs
 
 from PIL import Image
 from face_alignment import manual_aligning_68_v3
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
             
     col1, col2 = st.columns(2)
-    if file1 and file2 and col1.button("Swap face 1"):
+    if file1 and file2 and col1.button("Swap face 1") and swap_type=='Face parts':
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
             st.image(output)
@@ -254,7 +254,7 @@ if __name__ == '__main__':
             else:
                 st.write("Faces required! Please upload face 1 and face 2.")
 
-    if  file1 and file2 and col2.button("Swap face 2"):
+    if  file1 and file2 and col2.button("Swap face 2") and swap_type=='Face parts':
         if add_selectbox2=='NDTS' and status1 and status2 :
             output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
             st.image(output)
@@ -265,7 +265,6 @@ if __name__ == '__main__':
             output = NDS_morphing(crop_img2, crop_img1, predictor)
             st.image(output)
         else:
-            #st.image(Image.open(file1))
             if status1 and not status2:
                 st.write("Faces required! Please upload face 2.")
             elif not status1 and status2:
@@ -273,5 +272,18 @@ if __name__ == '__main__':
             else:
                 st.write("Faces required! Please upload face 1 and face 2.")
         
-    
-    
+    if  file1 and file2 and col2.button("Swap face 1") and swap_type=='Whole face':
+        if add_selectbox4=='whole face' and status1 and status2 :
+            output = wfs.wholeface_swap_1(img1, img2, detector, predictor)
+            st.image(output)
+        elif add_selectbox4=='exclude beard area' and status1 and status2 :
+            st.image(crop_img1)
+        elif add_selectbox4=='exclude beard area' and status1 and status2 :
+            st.image(crop_img1)
+        else:
+            if status1 and not status2:
+                st.write("Faces required! Please upload face 2.")
+            elif not status1 and status2:
+                st.write("Faces required! Please upload face 1.")
+            else:
+                st.write("Faces required! Please upload face 1 and face 2.")
