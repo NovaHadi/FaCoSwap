@@ -278,6 +278,12 @@ if __name__ == '__main__':
             if add_selectbox4=='whole face' and status1 and status2 :
                 output = wfs.wholeface_swap_1(crop_img1, crop_img2, detector, predictor)
                 st.image(output)            
+            elif add_selectbox4=='exclude beard area' and status1 and status2 :
+                output = wfs.wholeface_swap_2(crop_img1, crop_img2, detector, predictor)
+                st.image(output)            
+            elif add_selectbox4=='exclude mouth and mustache area' and status1 and status2 :
+                output = wfs.wholeface_swap_3(crop_img1, crop_img2, detector, predictor)
+                st.image(output)            
             else:
                 st.write(check_faces(status1, status2))
             
@@ -285,6 +291,12 @@ if __name__ == '__main__':
         if file1 and file2 and col2.button("Swap face 2") :
             if add_selectbox4=='whole face' and status1 and status2 :
                 output = wfs.wholeface_swap_1(crop_img2, crop_img1, detector, predictor)
+                st.image(output)
+            elif add_selectbox4=='exclude beard area' and status1 and status2 :
+                output = wfs.wholeface_swap_2(crop_img2, crop_img1, detector, predictor)
+                st.image(output)
+            elif add_selectbox4=='exclude mouth and mustache area' and status1 and status2 :
+                output = wfs.wholeface_swap_3(crop_img2, crop_img1, detector, predictor)
                 st.image(output)
             else:
                 st.write(check_faces(status1, status2))
