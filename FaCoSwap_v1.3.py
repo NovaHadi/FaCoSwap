@@ -272,13 +272,29 @@ if __name__ == '__main__':
             else:
                 st.write("Faces required! Please upload face 1 and face 2.")
         
-    if  file1 and file2 and col2.button("Swap face 1") and swap_type=='Whole face':
+    if  file1 and file2 and col1.button("Swap whole face 1") and swap_type=='Whole face':
         if add_selectbox4=='whole face' and status1 and status2 :
             output = wfs.wholeface_swap_1(img1, img2, detector, predictor)
             st.image(output)
         elif add_selectbox4=='exclude beard area' and status1 and status2 :
             st.image(crop_img1)
+        elif add_selectbox4=='exclude mouth and mustache area' and status1 and status2 :
+            st.image(crop_img1)
+        else:
+            if status1 and not status2:
+                st.write("Faces required! Please upload face 2.")
+            elif not status1 and status2:
+                st.write("Faces required! Please upload face 1.")
+            else:
+                st.write("Faces required! Please upload face 1 and face 2.")
+
+    if  file1 and file2 and col2.button("Swap whole face 2") and swap_type=='Whole face':
+        if add_selectbox4=='whole face' and status1 and status2 :
+            output = wfs.wholeface_swap_1(img2, img1, detector, predictor)
+            st.image(output)
         elif add_selectbox4=='exclude beard area' and status1 and status2 :
+            st.image(crop_img1)
+        elif add_selectbox4=='exclude mouth and mustache area' and status1 and status2 :
             st.image(crop_img1)
         else:
             if status1 and not status2:
