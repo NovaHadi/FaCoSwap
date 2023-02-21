@@ -244,7 +244,6 @@ if __name__ == '__main__':
         crop_img2 = None
     
     st.title(":curly_haired_person: Face component swapping ")
-    st.write('---:eye:-:nose:-:lips:-:ear:-:eye:---')
             
     col1, col2 = st.columns(2)
     if swap_type=='Face parts' :        
