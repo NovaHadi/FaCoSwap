@@ -51,12 +51,12 @@ def getMaskCenter(img1, mask):
 @st.cache_data()
 def wholeface_swap_1(_img1, _img2, _detector, _predictor):
     
-    face1 = _detector(img1, 2)
-    landmarks1 = _predictor(img1, face1[0])
+    face1 = _detector(_img1, 2)
+    landmarks1 = _predictor(_img1, face1[0])
     shape1 = face_utils.shape_to_np(landmarks1)
 
-    face2 = _detector(img2, 2)
-    landmarks2 = _predictor(img2, face2[0])
+    face2 = _detector(_img2, 2)
+    landmarks2 = _predictor(_img2, face2[0])
     shape2 = face_utils.shape_to_np(landmarks2)
     
     w = 8
@@ -79,12 +79,12 @@ def wholeface_swap_1(_img1, _img2, _detector, _predictor):
                      [shape2[26][0],shape2[26][1]-w]], axis=0)
                      #[0,0],[0,149],[149,0],[149,149]], axis=0)
 
-    d_img1 = img1.copy()
-    d_img2 = img2.copy()
-    mask_img = np.zeros(img2.shape, dtype = np.float32)
+    d_img1 = _img1.copy()
+    d_img2 = _img2.copy()
+    mask_img = np.zeros(_img2.shape, dtype = np.float32)
     
-    morphed_landmark = manual_aligning_68_v3(img2, points2, points1)    
-    output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(morphed_landmark, img1, d_img2, d_img1, mask_img, points2, points1, alpha=1)
+    morphed_landmark = manual_aligning_68_v3(_img2, points2, points1)    
+    output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(morphed_landmark, _img1, d_img2, d_img1, mask_img, points2, points1, alpha=1)
     
     center, src_mask = getMaskCenter(morphed_landmark, mask)
     output = cv2.seamlessClone(output_replacement, morphed_landmark, src_mask, center, cv2.NORMAL_CLONE)
