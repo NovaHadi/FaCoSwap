@@ -51,12 +51,12 @@ def getMaskCenter(img1, mask):
 @st.cache_data()
 def wholeface_swap_1(_img1, _img2, _detector, _predictor):
     
-    face1 = detector(img1, 2)
-    landmarks1 = predictor(img1, face1[0])
+    face1 = _detector(img1, 2)
+    landmarks1 = _predictor(img1, face1[0])
     shape1 = face_utils.shape_to_np(landmarks1)
 
-    face2 = detector(img2, 2)
-    landmarks2 = predictor(img2, face2[0])
+    face2 = _detector(img2, 2)
+    landmarks2 = _predictor(img2, face2[0])
     shape2 = face_utils.shape_to_np(landmarks2)
     
     w = 8
