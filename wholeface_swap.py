@@ -81,10 +81,10 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
 
     d_img1 = img1.copy()
     d_img2 = img2.copy()
-    mask_img = np.zeros(img2.shape, dtype = np.float32)
+    mask_img = np.zeros(img1.shape, dtype = np.float32)
     
-    morphed_landmark = manual_aligning_68_v3(img2, points2, points1)    
-    output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(morphed_landmark, img1, d_img2, d_img1, mask_img, points2, points1, alpha=1)
+    morphed_landmark = manual_aligning_68_v3(img1, points1, points2)    
+    output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(morphed_landmark, img2, d_img1, d_img2, mask_img, points1, points2, alpha=1)
     
     center, src_mask = getMaskCenter(morphed_landmark, mask)
     output = cv2.seamlessClone(output_replacement, morphed_landmark, src_mask, center, cv2.NORMAL_CLONE)
