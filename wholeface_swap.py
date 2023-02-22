@@ -67,7 +67,8 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
                      [shape1[19][0],shape1[19][1]-w],
                      [shape1[24][0],shape1[24][1]-w],
                      [shape1[25][0],shape1[25][1]-w],
-                     [shape1[26][0],shape1[26][1]-w]], axis=0)
+                     [shape1[26][0],shape1[26][1]-w],
+                     [shape1[48][0],shape1[48][1]]], axis=0)
                      #[0,0],[0,149],[149,0],[149,149]], axis=0)
 
     points2 = shape2[0:68] # whole face
@@ -76,7 +77,8 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
                      [shape2[19][0],shape2[19][1]-w],
                      [shape2[24][0],shape2[24][1]-w],
                      [shape2[25][0],shape2[25][1]-w],
-                     [shape2[26][0],shape2[26][1]-w]], axis=0)
+                     [shape2[26][0],shape2[26][1]-w],
+                     [shape2[48][0],shape2[48][1]]], axis=0)
                      #[0,0],[0,149],[149,0],[149,149]], axis=0)
 
     d_img1 = img1.copy()
