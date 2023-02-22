@@ -46,7 +46,7 @@ def rotate_bound(image, angle):
     return cv2.warpAffine(image, M, (nW, nH))
 
 @st.cache_data()
-def rect_to_bb(rect):
+def rect_to_bb(_rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
 	# with OpenCV
