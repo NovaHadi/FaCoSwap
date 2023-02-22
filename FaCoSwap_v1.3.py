@@ -191,6 +191,7 @@ if __name__ == '__main__':
     instructions = """ FaCoSwap is a face component swap tool for face analysis. 
         Upload your own images and click the swap button to change the face part! """
     st.write(instructions)
+    st.write("The images should have a similar resolution, pose, illumination, and lighting to produce the best swap quality.")
 
     cam = st.checkbox(":camera: Camera")
     if cam:    
