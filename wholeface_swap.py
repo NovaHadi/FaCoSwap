@@ -85,13 +85,15 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
     
     #morphed_landmark = manual_aligning_68_v3(img1, points1, points2)    
     #output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(morphed_landmark, img2, d_img1, d_img2, mask_img, points1, points2, alpha=1)
+    #center, src_mask = getMaskCenter(morphed_landmark, mask)
+    #output = cv2.seamlessClone(output_replacement, morphed_landmark, src_mask, center, cv2.NORMAL_CLONE)
 
     # ============ upgrade the quality of the whole face swap ==============
     morphed_landmark = manual_aligning_68_v3(img2, points2, points1)    
     output_replacement, mask,  d_img1, d_img2 = mp.morphing_original(img1, morphed_landmark, d_img1, d_img2, mask_img, points2, points1, alpha=1)
     
-    center, src_mask = getMaskCenter(morphed_landmark, mask)
-    output = cv2.seamlessClone(output_replacement, morphed_landmark, src_mask, center, cv2.NORMAL_CLONE)
+    center, src_mask = getMaskCenter(img1, mask)
+    output = cv2.seamlessClone(output_replacement, img1, src_mask, center, cv2.NORMAL_CLONE)
 
     return output
 
