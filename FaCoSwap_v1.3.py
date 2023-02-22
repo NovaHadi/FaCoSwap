@@ -50,10 +50,10 @@ def rect_to_bb(_rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
 	# with OpenCV
-	x = rect.left()
-	y = rect.top()
-	w = rect.right() - x
-	h = rect.bottom() - y
+	x = _rect.left()
+	y = _rect.top()
+	w = _rect.right() - x
+	h = _rect.bottom() - y
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
