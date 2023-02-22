@@ -60,6 +60,17 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
     shape2 = face_utils.shape_to_np(landmarks2)
     
     w = 8
+    left_edge1 = 0
+    right_edge1 = 0
+    left_edge2 = 0
+    right_edge2 = 0
+    if shape1[16][0]-shape1[45][0]>30:
+        left_edge1 = int((shape1[16][0]-shape1[45][0])/2)
+        left_edge2 = int((shape2[16][0]-shape2[45][0])/2)
+    if shape1[36][0]-shape1[0][0]>30:
+        right_edge1 = int((shape1[36][0]-shape1[0][0])/2)
+        right_edge2 = int((shape2[36][0]-shape2[0][0])/2)
+
     #points1 = shape[0:17] # face border
     points1 = shape1[0:68] # whole face
     points1 = np.append(points1, [[shape1[17][0],shape1[17][1]-w],
@@ -67,11 +78,25 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
                      [shape1[19][0],shape1[19][1]-w],
                      [shape1[24][0],shape1[24][1]-w],
                      [shape1[25][0],shape1[25][1]-w],
-                     [shape1[26][0],shape1[26][1]-w],
+                     [shape1[26][0],shape1[26][1]-w]], axis=0)
+                     #[0,0],[0,149],[149,0],[149,149]], axis=0)
+    points1 = np.append(points1, [[shape1[17][0],shape1[17][1]-w],
+                     [shape1[36][0],shape1[2][1]],
+                     [shape1[45][0],shape1[14][1]],
+                     [shape1[41][0],shape1[48][1]],
+                     [shape1[46][0],shape1[54][1]],
                      [shape1[48][0]-w,shape1[48][1]],  # beside mouth corner - point 49
                      [shape1[57][0],shape1[57][1]+ w],  # below mouth - point 58
-                     [shape1[54][0]+w,shape1[54][1]]], axis=0)  # beside mouth corner - point 55
-                     #[0,0],[0,149],[149,0],[149,149]], axis=0)
+                     [shape1[54][0]+w,shape1[54][1]],  # beside mouth corner - point 55
+                     [shape1[18][0],shape1[18][1]-w],
+                     [shape1[19][0],shape1[19][1]-w],
+                     [shape1[24][0],shape1[24][1]-w],
+                     [shape1[25][0],shape1[25][1]-w],
+                     [shape1[26][0],shape1[26][1]-w],
+                     [shape1[0][0]+right_edge1,shape1[0][1]],
+                     [shape1[1][0]+right_edge1,shape1[1][1]],
+                     [shape1[15][0]-left_edge1,shape1[15][1]],
+                     [shape1[16][0]-left_edge1,shape1[16][1]]], axis=0)
 
     points2 = shape2[0:68] # whole face
     points2 = np.append(points2, [[shape2[17][0],shape2[17][1]-w],
@@ -79,11 +104,25 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
                      [shape2[19][0],shape2[19][1]-w],
                      [shape2[24][0],shape2[24][1]-w],
                      [shape2[25][0],shape2[25][1]-w],
-                     [shape2[26][0],shape2[26][1]-w],
+                     [shape2[26][0],shape2[26][1]-w]], axis=0)
+                     #[0,0],[0,149],[149,0],[149,149]], axis=0)
+    points2 = np.append(points2, [[shape2[17][0],shape2[17][1]-w],
+                     [shape2[36][0],shape2[2][1]],
+                     [shape2[45][0],shape2[14][1]],
+                     [shape2[41][0],shape2[48][1]],
+                     [shape2[46][0],shape2[54][1]],
                      [shape2[48][0]-w,shape2[48][1]],  # beside mouth corner - point 49
                      [shape2[57][0],shape2[57][1]+ w],  # below mouth - point 58
-                     [shape2[54][0]+w,shape2[54][1]]], axis=0)  # beside mouth corner - point 55
-                     #[0,0],[0,149],[149,0],[149,149]], axis=0)
+                     [shape2[54][0]+w,shape2[54][1]],  # beside mouth corner - point 55
+                     [shape2[18][0],shape2[18][1]-w],
+                     [shape2[19][0],shape2[19][1]-w],
+                     [shape2[24][0],shape2[24][1]-w],
+                     [shape2[25][0],shape2[25][1]-w],
+                     [shape2[26][0],shape2[26][1]-w],
+                     [shape2[0][0]+right_edge2,shape2[0][1]],
+                     [shape2[1][0]+right_edge2,shape2[1][1]],
+                     [shape2[15][0]-left_edge2,shape2[15][1]],
+                     [shape2[16][0]-left_edge2,shape2[16][1]]], axis=0)
 
     d_img1 = img1.copy()
     d_img2 = img2.copy()
