@@ -156,7 +156,8 @@ def load_model(dlib_path):
 
 if __name__ == '__main__':
 
-    dlib_path = '/app/FaCoSwap/dlib-models-master/'
+    #dlib_path = '/app/FaCoSwap/dlib-models-master/'
+    dlib_path = './dlib-models-master/'
     predictor = load_model(dlib_path)
     detector = dlib.get_frontal_face_detector()
     
