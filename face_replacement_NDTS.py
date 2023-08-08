@@ -8,6 +8,7 @@ Non Discriminative Texture and Shape (NDTS and iNDTS)
 """
 #from imutils import face_utils
 
+import streamlit as st
 import numpy as np
 #import dlib
 #import matplotlib.pyplot as plt
@@ -19,6 +20,7 @@ import face_morphing as mp
 from imutils import face_utils
 from face_alignment import manual_aligning_68_v3
 
+@st.cache_data
 def getMaskCenter(img1, mask):
     src_mask = np.zeros(img1.shape, img1.dtype)
     src_mask[mask>0] = 255
@@ -27,6 +29,7 @@ def getMaskCenter(img1, mask):
     center = (r[1]+int(r[3]/2)), (r[0]+int(r[2]/2))
     return center, src_mask
 
+@st.cache_data
 def getEyebrowsMorphing_v1(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     w = 6
     w3 = 6
@@ -141,6 +144,7 @@ def getEyebrowsMorphing_v1(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
+@st.cache_data
 def get_right_EyebrowsMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     w = 6
     w3 = 6
@@ -208,6 +212,7 @@ def get_right_EyebrowsMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha)
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
+@st.cache_data
 def get_left_EyebrowsMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     w = 6
     w3 = 6
@@ -274,6 +279,7 @@ def get_left_EyebrowsMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
+@st.cache_data
 def get_right_EyesMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     mask_img = np.zeros(img1.shape, dtype = np.float32)
     w = 6
@@ -299,6 +305,7 @@ def get_right_EyesMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
+@st.cache_data
 def get_left_EyesMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     mask_img = np.zeros(img1.shape, dtype = np.float32)
     w = 6
@@ -324,7 +331,7 @@ def get_left_EyesMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
-
+@st.cache_data
 def get_NoseMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     mask_img = np.zeros(img1.shape, dtype = np.float32)
     w = 8
@@ -344,7 +351,7 @@ def get_NoseMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
-
+@st.cache_data
 def get_MouthMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     mask_img = np.zeros(img1.shape, dtype = np.float32)
     w = 8
@@ -381,6 +388,7 @@ def get_MouthMorphing(shape, shape2, img1, img2, d_img1, d_img2, alpha):
     
     return output, mask, d_img1, d_img2, all_points, ori_points
 
+@st.cache_data
 def eyebrows(shape, shape2, img1, img2, d_img1, d_img2):
     # replace the source landmarks with the destination landmarks
     shape3 = shape.copy()
@@ -399,6 +407,7 @@ def eyebrows(shape, shape2, img1, img2, d_img1, d_img2):
     
     return output, d_img1, d_img2, mask, output_replacement
 
+@st.cache_data
 def eyes(shape, shape2, img1, img2, d_img1, d_img2):
     # replace the source landmarks with the destination landmarks
     shape3 = shape.copy()
@@ -417,6 +426,7 @@ def eyes(shape, shape2, img1, img2, d_img1, d_img2):
     
     return output, d_img1, d_img2, mask, output_replacement
 
+@st.cache_data
 def nose(shape, shape2, img1, img2, d_img1, d_img2):
     # replace the source landmarks with the destination landmarks
     shape3 = shape.copy()
@@ -429,6 +439,7 @@ def nose(shape, shape2, img1, img2, d_img1, d_img2):
     
     return output, d_img1, d_img2, mask, output_replacement
 
+@st.cache_data
 def mouth(shape, shape2, img1, img2, d_img1, d_img2):
     # replace the source landmarks with the destination landmarks
     shape3 = shape.copy()
@@ -441,6 +452,7 @@ def mouth(shape, shape2, img1, img2, d_img1, d_img2):
     
     return output, d_img1, d_img2, mask, output_replacement
 
+@st.cache_data
 def check_multiple_faces(face_rects):
     nFaces = len(face_rects)            
     if nFaces > 1:
@@ -454,6 +466,7 @@ def check_multiple_faces(face_rects):
         face_rect = face_rects[0]    
     return face_rect
 
+@st.cache_data
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
@@ -465,7 +478,7 @@ def rect_to_bb(rect):
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
-
+@st.cache_data
 def LmPt_Morph(img1, img2, parts, detector, predictor):
     img1 = np.uint8(img1)
     img2 = np.uint8(img2)

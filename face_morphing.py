@@ -4,11 +4,12 @@ Created on Sun Jun 19 04:50:08 2022
 
 @author: ACER
 """
-
+import streamlit as st
 import cv2
 #import math
 import numpy as np
 
+@st.cache_data
 def draw_delaunay(img_ori, subdiv, delaunay_color ) :
     img = img_ori.copy()
     triangleList = subdiv.getTriangleList();
@@ -26,6 +27,7 @@ def draw_delaunay(img_ori, subdiv, delaunay_color ) :
             cv2.line(img, pt3, pt1, delaunay_color, 1)
     return img
 
+@st.cache_data
 def applyAffineTransform(src, srcTri, dstTri, size) :
     # Given a pair of triangles, find the affine transform.
     warpMat = cv2.getAffineTransform( np.float32(srcTri), np.float32(dstTri) )
@@ -33,6 +35,7 @@ def applyAffineTransform(src, srcTri, dstTri, size) :
     dst = cv2.warpAffine( src, warpMat, (size[0], size[1]), None, flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101 )
     return dst
 
+@st.cache_data
 def rect_contains(rect, point) :
     if point[0] < rect[0] :
         return False
@@ -44,6 +47,7 @@ def rect_contains(rect, point) :
         return False
     return True
 
+@st.cache_data
 def calculateDelaunayTriangles(rect, points, img):
     delaunay_img = img.copy()
 
@@ -85,6 +89,7 @@ def calculateDelaunayTriangles(rect, points, img):
         pt = []        
     return delaunayTri, delaunay_img
 
+@st.cache_data
 def morphing(img1, img2, mask_im, delaunay_img, delaunay_img2, points1, points2, alpha):
     output =  img1.copy()
     #delaunay_img = img1.copy()
@@ -163,6 +168,7 @@ def morphing(img1, img2, mask_im, delaunay_img, delaunay_img2, points1, points2,
     # return the aligned face
     return output, mask_img, delaunay_img, delaunay_img2
 
+@st.cache_data
 def morphing_original(img1, img2, d_img1, d_img2, mask_im, points1, points2, alpha):
     output =  img1.copy()
     delaunay_img = d_img1

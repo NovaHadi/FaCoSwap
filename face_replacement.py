@@ -10,6 +10,7 @@ Non Discriminative Texture (NDT and iNDT)
 
 from imutils import face_utils
 
+import streamlit as st
 import numpy as np
 #import dlib
 #import matplotlib.pyplot as plt
@@ -19,6 +20,7 @@ import cv2
 #import math
 import face_morphing as mp
 
+@st.cache_data
 def getEyebrowsMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 5
     w2 = 4
@@ -65,6 +67,7 @@ def getEyebrowsMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delau
     
     return output, mask, delaunay_img, delaunay_img2, all_points, ori_points
 
+@st.cache_data
 def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 6
     w3 = 6
@@ -198,6 +201,7 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     
     return output, mask, delaunay_img, delaunay_img2, all_points, ori_points
 
+@st.cache_data
 def getEyesMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 6
     s = 2
@@ -238,7 +242,7 @@ def getEyesMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_
 
     return output, mask, delaunay_img, delaunay_img2, all_points, ori_points
 
-
+@st.cache_data
 def getNoseMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 8
     #points1 = shape[[27,31,32,33,34,35]]
@@ -260,7 +264,7 @@ def getNoseMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_
 
     return output, mask, delaunay_img, delaunay_img2, all_points, ori_points
 
-
+@st.cache_data
 def getMouthMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 8
     points1 = shape[48:60]
@@ -296,6 +300,7 @@ def getMouthMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay
 
     return output, mask, delaunay_img, delaunay_img2, all_points, ori_points
 
+@st.cache_data
 def getMaskCenter(img1, mask):
     src_mask = np.zeros(img1.shape, img1.dtype)
     src_mask[mask>0] = 255
@@ -304,6 +309,7 @@ def getMaskCenter(img1, mask):
     center = (r[1]+int(r[3]/2)), (r[0]+int(r[2]/2))
     return center, src_mask
 
+@st.cache_data
 def check_multiple_faces(face_rects):
     nFaces = len(face_rects)            
     if nFaces > 1:
@@ -317,6 +323,7 @@ def check_multiple_faces(face_rects):
         face_rect = face_rects[0]    
     return face_rect
 
+@st.cache_data
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
@@ -328,6 +335,7 @@ def rect_to_bb(rect):
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
+@st.cache_data
 def face_part_replacement(img1, detector, predictor, mean_face, alpha, facepart_type):
     img1 = np.uint8(img1)
     img2 = np.uint8(mean_face)

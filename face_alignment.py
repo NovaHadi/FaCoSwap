@@ -5,11 +5,12 @@ Created on Tue Sep 13 01:56:20 2022
 @author: N.H.Lestriandoko
 """
 
+import streamlit as st
 import numpy as np
 import cv2
 from face_morphing import calculateDelaunayTriangles
 
-
+@st.cache_data
 def applyAffineTransform(src, srcTri, dstTri, size) :
     # Given a pair of triangles, find the affine transform.
     warpMat = cv2.getAffineTransform( np.float32(srcTri), np.float32(dstTri) )
@@ -17,6 +18,7 @@ def applyAffineTransform(src, srcTri, dstTri, size) :
     dst = cv2.warpAffine( src, warpMat, (size[0], size[1]), None, flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101 )
     return dst
 
+@st.cache_data
 def manual_aligning_68_v3(img, shape, mean_points):
     size = img.shape
     rect = (0, 0, size[1], size[0])

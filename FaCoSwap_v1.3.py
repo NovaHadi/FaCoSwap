@@ -25,7 +25,7 @@ from face_alignment import manual_aligning_68_v3
 from imutils import face_utils
 from io import BytesIO
 
-@st.cache()
+@st.cache_data
 def rotate_bound(image, angle):
     # grab the dimensions of the image and then determine the center
     (h, w) = image.shape[:2]
@@ -45,7 +45,7 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
-@st.cache()
+@st.cache_data
 def rect_to_bb(_rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
@@ -57,7 +57,7 @@ def rect_to_bb(_rect):
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
-@st.cache()
+@st.cache_data
 def crop_to_bbox(img, bbox):
     shape_img = img.shape[:2]
     bbox = np.clip(bbox, 0., 1.)
@@ -66,7 +66,7 @@ def crop_to_bbox(img, bbox):
     img_cropped = img[bbox[0]:bbox[2], bbox[1]:bbox[3], :] # crop
     return img_cropped
 
-@st.cache()
+@st.cache_data
 def detect_face_0(img, _detector, _predictor, padding, size):
     status = True    
     #img = dlib.load_rgb_image(input_dir)
@@ -111,7 +111,7 @@ def detect_face_0(img, _detector, _predictor, padding, size):
         img_crop = dlib.get_face_chip(img, landmarks, size=size, padding=padding)
         return img_crop, status
 
-@st.cache
+@st.cache_data
 def NDS_morphing(img1, img2, _predictor):
     face1 = detector(img1, 2)
     landmarks1 = predictor(img1, face1[0])
@@ -124,7 +124,7 @@ def NDS_morphing(img1, img2, _predictor):
     output = manual_aligning_68_v3(img1, shape1, shape2)    
     return output
 
-@st.cache
+@st.cache_data
 def check_landmarks(img, _predictor):
     face = detector(img, 2)
     landmarks1 = predictor(img, face[0])
@@ -134,7 +134,7 @@ def check_landmarks(img, _predictor):
     
     return shape.size, img
 
-@st.cache
+@st.cache_data
 def check_faces(status1, status2):
     if status1 and not status2:
         return "Faces required! Please upload face 2."
@@ -146,7 +146,7 @@ def check_faces(status1, status2):
         return ""
     
     
-@st.cache
+@st.cache_resource
 def load_model(dlib_path):
     predictor68_path = dlib_path +'shape_predictor_68_face_landmarks.dat'
     #face_rec_model_path = dlib_path +'dlib_face_recognition_resnet_model_v1.dat'

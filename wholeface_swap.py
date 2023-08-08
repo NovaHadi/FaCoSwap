@@ -13,7 +13,7 @@ import face_morphing as mp
 from imutils import face_utils
 from face_alignment import manual_aligning_68_v3
 
-@st.cache()
+@st.cache_data
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
@@ -25,7 +25,7 @@ def rect_to_bb(rect):
 	# return a tuple of (x, y, w, h)
 	return (x, y, w, h)
 
-@st.cache()
+@st.cache_data
 def check_multiple_faces(face_rects):
     nFaces = len(face_rects)            
     if nFaces > 1:
@@ -39,7 +39,7 @@ def check_multiple_faces(face_rects):
         face_rect = face_rects[0]    
     return face_rect
 
-@st.cache()
+@st.cache_data
 def getMaskCenter(img1, mask):
     src_mask = np.zeros(img1.shape, img1.dtype)
     src_mask[mask>0] = 255
@@ -48,7 +48,7 @@ def getMaskCenter(img1, mask):
     center = (r[1]+int(r[3]/2)), (r[0]+int(r[2]/2))
     return center, src_mask
 
-@st.cache()
+@st.cache_data
 def wholeface_swap_1(img1, img2, _detector, _predictor):
     
     face1 = _detector(img1, 2)
@@ -97,7 +97,7 @@ def wholeface_swap_1(img1, img2, _detector, _predictor):
 
     return output
 
-@st.cache()
+@st.cache_data
 def wholeface_swap_2(img1, img2, _detector, _predictor):
     
     face1 = _detector(img1, 2)
@@ -194,7 +194,7 @@ def wholeface_swap_2(img1, img2, _detector, _predictor):
 
     return output
 
-@st.cache()
+@st.cache_data
 def wholeface_swap_3(img1, img2, _detector, _predictor):
     
     face1 = _detector(img1, 2)
