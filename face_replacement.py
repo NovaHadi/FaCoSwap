@@ -310,17 +310,17 @@ def getMaskCenter(img1, mask):
     return center, src_mask
 
 @st.cache_data
-def check_multiple_faces(face_rects):
-    nFaces = len(face_rects)            
+def check_multiple_faces(_face_rects):
+    nFaces = len(_face_rects)            
     if nFaces > 1:
-        x1, y1, w1, h1 = rect_to_bb(face_rects[0])
-        x2, y2, w2, h2 = rect_to_bb(face_rects[1])
+        x1, y1, w1, h1 = rect_to_bb(_face_rects[0])
+        x2, y2, w2, h2 = rect_to_bb(_face_rects[1])
         if w1>w2:
-            face_rect = face_rects[0]
+            face_rect = _face_rects[0]
         else:
-            face_rect = face_rects[1]
+            face_rect = _face_rects[1]
     else:
-        face_rect = face_rects[0]    
+        face_rect = _face_rects[0]    
     return face_rect
 
 @st.cache_data
@@ -336,19 +336,19 @@ def rect_to_bb(rect):
 	return (x, y, w, h)
 
 @st.cache_data
-def face_part_replacement(img1, detector, predictor, mean_face, alpha, facepart_type):
+def face_part_replacement(img1, _detector, _predictor, mean_face, alpha, facepart_type):
     img1 = np.uint8(img1)
     img2 = np.uint8(mean_face)
-    face_rects1 = detector(img1, 2)
+    face_rects1 = _detector(img1, 2)
     if len(face_rects1)>0:
         face_rect1 = check_multiple_faces(face_rects1)                    
     
-    face_rects2 = detector(img2, 2)
+    face_rects2 = _detector(img2, 2)
     if len(face_rects2)>0:
         face_rect2 = check_multiple_faces(face_rects2)                    
     # extract the landmarks
-    landmarks = predictor(img1, face_rect1)
-    landmarks2 = predictor(img2, face_rect2)
+    landmarks = _predictor(img1, face_rect1)
+    landmarks2 = _predictor(img2, face_rect2)
     # to np.array
     shape = face_utils.shape_to_np(landmarks)
     shape2 = face_utils.shape_to_np(landmarks2) 
