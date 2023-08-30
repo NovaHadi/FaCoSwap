@@ -10,9 +10,9 @@ import cv2
 import numpy as np
 
 @st.cache_data
-def draw_delaunay(img_ori, subdiv, delaunay_color ) :
+def draw_delaunay(img_ori, _subdiv, delaunay_color ) :
     img = img_ori.copy()
-    triangleList = subdiv.getTriangleList();
+    triangleList = _subdiv.getTriangleList();
     size = img.shape
     r = (0, 0, size[1], size[0])
     
