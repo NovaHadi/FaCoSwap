@@ -453,17 +453,17 @@ def mouth(shape, shape2, img1, img2, d_img1, d_img2):
     return output, d_img1, d_img2, mask, output_replacement
 
 @st.cache_data
-def check_multiple_faces(face_rects):
-    nFaces = len(face_rects)            
+def check_multiple_faces(_face_rects):
+    nFaces = len(_face_rects)            
     if nFaces > 1:
-        x1, y1, w1, h1 = rect_to_bb(face_rects[0])
-        x2, y2, w2, h2 = rect_to_bb(face_rects[1])
+        x1, y1, w1, h1 = rect_to_bb(_face_rects[0])
+        x2, y2, w2, h2 = rect_to_bb(_face_rects[1])
         if w1>w2:
-            face_rect = face_rects[0]
+            face_rect = _face_rects[0]
         else:
-            face_rect = face_rects[1]
+            face_rect = _face_rects[1]
     else:
-        face_rect = face_rects[0]    
+        face_rect = _face_rects[0]    
     return face_rect
 
 @st.cache_data
