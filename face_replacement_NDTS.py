@@ -479,21 +479,21 @@ def rect_to_bb(rect):
 	return (x, y, w, h)
 
 @st.cache_data
-def LmPt_Morph(img1, img2, parts, detector, predictor):
+def LmPt_Morph(img1, img2, parts, _detector, _predictor):
     img1 = np.uint8(img1)
     img2 = np.uint8(img2)
     d_img1 = img1.copy()
     d_img2 = img2.copy()
-    face_rects1 = detector(img1, 2)
+    face_rects1 = _detector(img1, 2)
     if len(face_rects1)>0:
         face_rect1 = check_multiple_faces(face_rects1)                    
     
-    face_rects2 = detector(img2, 2)
+    face_rects2 = _detector(img2, 2)
     if len(face_rects2)>0:
         face_rect2 = check_multiple_faces(face_rects2)                    
     
-    landmarks = predictor(img1, face_rect1)
-    landmarks2 = predictor(img2, face_rect2)
+    landmarks = _predictor(img1, face_rect1)
+    landmarks2 = _predictor(img2, face_rect2)
     # to np.array
     shape = face_utils.shape_to_np(landmarks)
     shape2 = face_utils.shape_to_np(landmarks2) 
