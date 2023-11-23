@@ -72,6 +72,18 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     w = 6
     w3 = 6
     s = 2
+    height, width, channel = img1.shape
+    size = width
+    if (size>=300) and (size<450):
+        w = w * 2
+        w3 = w3 * 2
+    elif (size>=450) :
+        w = w * 3
+        w3 = w3 * 3
+    else:
+        w = 6
+        w3 = 6
+
     # divide an eyebrow into three morphing areas
     # =============== RIGHT EYEBROW =================    
     points1 = shape[17:22] 
@@ -84,18 +96,16 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     r_pts_1 = np.append(r_pts_1,[[points1[0][0],points1[0][1]-w],
                                  [points1[1][0],points1[1][1]-w],
                                  [points1[2][0],points1[2][1]-w],
-                                 #[points1[0][0],points1[0][1]+w2],
-                                 #[r_eye_pts[0][0],r_eye_pts[0][1]-w3],
-                                 [r_eye_pts[0][0]-s*w,r_eye_pts[0][1]-w3],
+                                 [r_eye_pts[0][0]-s*w,r_eye_pts[0][1]],
+                                 [r_eye_pts[0][0],r_eye_pts[0][1]-w3],
                                  [r_eye_pts[1][0],r_eye_pts[1][1]-w3]], axis=0)
 
     avg_r_pts_1 = shape2[17:20]
     avg_r_pts_1 = np.append(avg_r_pts_1,[[points2[0][0],points2[0][1]-w],
                                  [points2[1][0],points2[1][1]-w],
                                  [points2[2][0],points2[2][1]-w],
-                                 #[points2[0][0],points2[0][1]+w2],
-                                 #[r_eye_pts2[0][0],r_eye_pts2[0][1]-w3],
-                                 [r_eye_pts2[0][0]-s*w,r_eye_pts2[0][1]-w3],
+                                 [r_eye_pts2[0][0]-s*w,r_eye_pts2[0][1]],
+                                 [r_eye_pts2[0][0],r_eye_pts2[0][1]-w3],
                                  [r_eye_pts2[1][0],r_eye_pts2[1][1]-w3]], axis=0)
     output, mask, delaunay_img, delaunay_img2 =mp.morphing(img1, img2, mask_img,  
                                                          delaunay_img, delaunay_img2, r_pts_1, avg_r_pts_1, alpha)    
@@ -117,21 +127,19 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     
     # right eyebrow - area 3 :
     r_pts_3 = shape[20:22]
-    r_pts_3 = np.append(r_pts_3,[[points1[3][0],points1[3][1]-w],
+    r_pts_3 = np.append(r_pts_3,[[points1[3][0]-int(w/2),points1[3][1]-w],
                                  [points1[4][0]+w,points1[4][1]-w],
-                                 #[points1[4][0]+w,r_eye_pts[3][1]-w3],
                                  [r_eye_pts[2][0],r_eye_pts[2][1]-w3],
-                                 #[r_eye_pts[3][0],r_eye_pts[3][1]-w3],
-                                 [r_eye_pts[3][0]+s*w,r_eye_pts[3][1]-w3]], axis=0)
+                                 [r_eye_pts[3][0],r_eye_pts[3][1]-w3],
+                                 [r_eye_pts[3][0]+s*w,r_eye_pts[3][1]]], axis=0)
                                  
 
     avg_r_pts_3 = shape2[20:22]
-    avg_r_pts_3 = np.append(avg_r_pts_3,[[points2[3][0],points2[3][1]-w],
+    avg_r_pts_3 = np.append(avg_r_pts_3,[[points2[3][0]-int(w/2),points2[3][1]-w],
                                  [points2[4][0]+w,points2[4][1]-w],
-                                 #[points2[4][0]+w,r_eye_pts2[3][1]-w3],
                                  [r_eye_pts2[2][0],r_eye_pts2[2][1]-w3],
-                                 #[r_eye_pts2[3][0],r_eye_pts2[3][1]-w3],
-                                 [r_eye_pts2[3][0]+s*w,r_eye_pts2[3][1]-w3]], axis=0)
+                                 [r_eye_pts2[3][0],r_eye_pts2[3][1]-w3],
+                                 [r_eye_pts2[3][0]+s*w,r_eye_pts2[3][1]]], axis=0)
     output, mask, delaunay_img, delaunay_img2 =mp.morphing(output, img2, mask,
                                                          delaunay_img, delaunay_img2, r_pts_3, avg_r_pts_3, alpha)    
 
@@ -145,17 +153,15 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     l_pts_1 = shape[22:24]
     l_pts_1 = np.append(l_pts_1,[[points1a[0][0]-w,points1a[0][1]-w],
                                  [points1a[1][0],points1a[1][1]-w],
-                                 #[points1a[0][0]-w,l_eye_pts[0][1]-w3],
-                                 #[l_eye_pts[0][0],l_eye_pts[0][1]-w3],
-                                 [l_eye_pts[0][0]-s*w,l_eye_pts[0][1]-w3],
+                                 [l_eye_pts[0][0]-s*w,l_eye_pts[0][1]],
+                                 [l_eye_pts[0][0],l_eye_pts[0][1]-w3],
                                  [l_eye_pts[1][0],l_eye_pts[1][1]-w3]], axis=0)
         
     avg_l_pts_1 = shape2[22:24]
     avg_l_pts_1 = np.append(avg_l_pts_1,[[points2a[0][0]-w,points2a[0][1]-w],
                                  [points2a[1][0],points2a[1][1]-w],
-                                 #[points2a[0][0]-w,l_eye_pts2[0][1]-w3],
-                                 #
-                                 [l_eye_pts2[0][0]-s*w,l_eye_pts2[0][1]-w3],
+                                 [l_eye_pts2[0][0]-s*w,l_eye_pts2[0][1]],
+                                 [l_eye_pts2[0][0],l_eye_pts2[0][1]-w3],
                                  [l_eye_pts2[1][0],l_eye_pts2[1][1]-w3]], axis=0)
     output, mask, delaunay_img, delaunay_img2 =mp.morphing(output, img2, mask, 
                                                          delaunay_img, delaunay_img2, l_pts_1, avg_l_pts_1, alpha)    
@@ -180,17 +186,17 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     l_pts_3 = np.append(l_pts_3,[[points1a[2][0],points1a[2][1]-w],
                                    [points1a[3][0],points1a[3][1]-w],
                                    [points1a[4][0],points1a[4][1]-w],
-                                   #[points1a[4][0],points1a[4][1]+w2],
                                    [l_eye_pts[2][0],l_eye_pts[2][1]-w3],
-                                   [l_eye_pts[3][0]+s*w,l_eye_pts[3][1]-w3]], axis=0)
+                                   [l_eye_pts[3][0],l_eye_pts[3][1]-w3],
+                                   [l_eye_pts[3][0]+s*w,l_eye_pts[3][1]]], axis=0)
 
     avg_l_pts_3 = shape2[24:27]
     avg_l_pts_3 = np.append(avg_l_pts_3,[[points2a[2][0],points2a[2][1]-w],
                                    [points2a[3][0],points2a[3][1]-w],
                                    [points2a[4][0],points2a[4][1]-w],
-                                   #[points2a[4][0],points2a[4][1]+w2],
                                    [l_eye_pts2[2][0],l_eye_pts2[2][1]-w3],
-                                   [l_eye_pts2[3][0]+s*w,l_eye_pts2[3][1]-w3]], axis=0)
+                                   [l_eye_pts2[3][0],l_eye_pts2[3][1]-w3],
+                                   [l_eye_pts2[3][0]+s*w,l_eye_pts2[3][1]]], axis=0)
     output, mask, delaunay_img, delaunay_img2 =mp.morphing(output, img2, mask, 
                                                          delaunay_img, delaunay_img2, l_pts_3, avg_l_pts_3, alpha)    
 
@@ -205,6 +211,15 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
 def getEyesMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 6
     s = 2
+    height, width, channel = img1.shape
+    size = width
+    if (size>=300) and (size<450):
+        w = w * 2
+    elif (size>=450) :
+        w = w * 3
+    else:
+        w = 6
+
     points1 = shape[36:42]
     points1 = np.append(points1,[[points1[0][0]-s*w,points1[0][1]],
                                  [points1[1][0],points1[1][1]-w],
@@ -246,6 +261,15 @@ def getEyesMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_
 def getNoseMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 8
     #points1 = shape[[27,31,32,33,34,35]]
+    height, width, channel = img1.shape
+    size = width
+    if (size>=300) and (size<450):
+        w = w * 2
+    elif (size>=450) :
+        w = w * 3
+    else:
+        w = 8
+
     points1 = shape[27:36]
     points1 = np.append(points1,[[points1[4][0]-w,points1[4][1]],
                                  [points1[6][0],points1[6][1]+w/2],
@@ -267,6 +291,15 @@ def getNoseMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_
 @st.cache_data
 def getMouthMorphing(shape, shape2, img1, img2, mask_img, delaunay_img, delaunay_img2, alpha):
     w = 8
+    height, width, channel = img1.shape
+    size = width
+    if (size>=300) and (size<450):
+        w = w * 2
+    elif (size>=450) :
+        w = w * 3
+    else:
+        w = 8
+
     points1 = shape[48:60]
     points1 = np.append(points1,[[points1[0][0]-w,points1[0][1]], 
                                  [points1[1][0],points1[1][1]-w],
