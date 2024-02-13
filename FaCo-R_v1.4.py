@@ -173,7 +173,7 @@ if __name__ == '__main__':
         )
         add_selectbox2 = st.sidebar.selectbox(
             'Which method would you like to use? both texture and shape, texture only, shape only.',
-            ('NDTS', 'NDT', 'NDS')
+            ('Texture and Shape', 'Texture Only', 'Shape Only')
         )
     else:
         add_selectbox4 = st.sidebar.selectbox(
@@ -252,26 +252,26 @@ if __name__ == '__main__':
     col_swap1,col_swap2,col_swap3 = st.columns(3)
     if swap_type=='Face parts' :        
         if file1 and file2 and col1.button("Replace from Face 2 to 1") :
-            if add_selectbox2=='NDTS' and status1 and status2 :
+            if add_selectbox2=='Texture and Shape' and status1 and status2 :
                 output, d_img1, d_img2, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img1, crop_img2, add_selectbox1, detector, predictor)
                 col_swap2.image(output)
-            elif add_selectbox2=='NDT' and status1 and status2 :
+            elif add_selectbox2=='Texture Only' and status1 and status2 :
                 output, morphed_img, mask_img, delaunay_img1, delaunay_img2, all_points, ori_points = fpr.face_part_replacement(crop_img1, detector, predictor, crop_img2, 1, add_selectbox1)
                 col_swap2.image(output)
-            elif add_selectbox2=='NDS' and status1 and status2 :
+            elif add_selectbox2=='Shape Only' and status1 and status2 :
                 output = NDS_morphing(crop_img1, crop_img2, predictor)
                 col_swap2.image(output)
             else:
                 col_swap2.write(check_faces(status1, status2))
     
         if file1 and file2 and col2.button("Replace from Face 1 to 2") :
-            if add_selectbox2=='NDTS' and status1 and status2 :
+            if add_selectbox2=='Texture and Shape' and status1 and status2 :
                 output, d_img2, d_img1, mask, output_replacement, morphed_img  = ndts.LmPt_Morph(crop_img2, crop_img1, add_selectbox1, detector, predictor)
                 col_swap2.image(output)
-            elif add_selectbox2=='NDT' and status1 and status2 :
+            elif add_selectbox2=='Texture Only' and status1 and status2 :
                 output, morphed_img, mask_img, delaunay_img2, delaunay_img1, all_points, ori_points = fpr.face_part_replacement(crop_img2, detector, predictor, crop_img1, 1, add_selectbox1)
                 col_swap2.image(output)
-            elif add_selectbox2=='NDS' and status1 and status2 :
+            elif add_selectbox2=='Shape Only' and status1 and status2 :
                 output = NDS_morphing(crop_img2, crop_img1, predictor)
                 col_swap2.image(output)
             else:
