@@ -17,9 +17,9 @@ def draw_delaunay(img_ori, _subdiv, delaunay_color ) :
     r = (0, 0, size[1], size[0])
     
     for t in triangleList :
-        pt1 = (t[0], t[1])
-        pt2 = (t[2], t[3])
-        pt3 = (t[4], t[5])
+        pt1 = (int(t[0]), int(t[1]))
+        pt2 = (int(t[2]), int(t[3]))
+        pt3 = (int(t[4]), int(t[5]))
 
         if rect_contains(r, pt1) and rect_contains(r, pt2) and rect_contains(r, pt3) :
             cv2.line(img, pt1, pt2, delaunay_color, 1)
@@ -71,9 +71,9 @@ def calculateDelaunayTriangles(rect, points, img):
         pt.append((t[2], t[3]))
         pt.append((t[4], t[5]))
         
-        pt1 = (t[0], t[1])
-        pt2 = (t[2], t[3])
-        pt3 = (t[4], t[5])        
+        pt1 = (int(t[0]), int(t[1]))
+        pt2 = (int(t[2]), int(t[3]))
+        pt3 = (int(t[4]), int(t[5]))
         
         if rect_contains(rect, pt1) and rect_contains(rect, pt2) and rect_contains(rect, pt3):
             ind = []
