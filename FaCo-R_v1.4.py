@@ -177,7 +177,7 @@ if __name__ == '__main__':
         )
     else:
         add_selectbox4 = st.sidebar.selectbox(
-            'How large the area would you like to swap?',
+            'How large the area would you like to replace?',
             ('whole face', 'exclude beard area', 'exclude mouth and mustache area')
         ) 
             
@@ -246,7 +246,7 @@ if __name__ == '__main__':
     else:
         crop_img2 = None
     
-    st.title(":curly_haired_person: Face component swapping ")
+    st.title(":curly_haired_person: Face component replacement ")
             
     col1, col2 = st.columns(2)
     col_swap1,col_swap2,col_swap3 = st.columns(3)
