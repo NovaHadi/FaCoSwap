@@ -56,7 +56,8 @@ def calculateDelaunayTriangles(rect, points, img):
     
     # Insert points into subdiv
     for p in points:
-        subdiv.insert(p) 
+        ptup = tuple((p[0].item(), p[1].item()))
+        subdiv.insert(ptup) 
     
     delaunay_img = draw_delaunay( delaunay_img, subdiv, (255, 255, 255))
     
