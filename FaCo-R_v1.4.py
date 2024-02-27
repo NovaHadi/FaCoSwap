@@ -5,6 +5,7 @@ Created on Thu Feb 12 08:55:52 2024
 @author: N.H.Lestriandoko
 National Research and Innovative Agency (BRIN) - Indonesia
 University of Twente - The Netherlands
+previous version: FaCoSwap v1.3
 
 ===============================================
 === FaCo-R implementation using Streamlit ===
