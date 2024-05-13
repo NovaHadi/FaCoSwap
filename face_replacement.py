@@ -127,6 +127,7 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
     
     # right eyebrow - area 3 :
     r_pts_3 = shape[20:22]
+    """
     r_pts_3 = np.append(r_pts_3,[[points1[3][0]-int(w/2),points1[3][1]-w],
                                  [points1[4][0]+w,points1[4][1]-w],
                                  [r_eye_pts[2][0],r_eye_pts[2][1]-w3],
@@ -136,6 +137,20 @@ def getEyebrowsMorphing_v2(shape, shape2, img1, img2, mask_img, delaunay_img, de
 
     avg_r_pts_3 = shape2[20:22]
     avg_r_pts_3 = np.append(avg_r_pts_3,[[points2[3][0]-int(w/2),points2[3][1]-w],
+                                 [points2[4][0]+w,points2[4][1]-w],
+                                 [r_eye_pts2[2][0],r_eye_pts2[2][1]-w3],
+                                 [r_eye_pts2[3][0],r_eye_pts2[3][1]-w3],
+                                 [r_eye_pts2[3][0]+s*w,r_eye_pts2[3][1]]], axis=0)
+    """
+    r_pts_3 = np.append(r_pts_3,[[points1[3][0],points1[3][1]-w],
+                                 [points1[4][0]+w,points1[4][1]-w],
+                                 [r_eye_pts[2][0],r_eye_pts[2][1]-w3],
+                                 [r_eye_pts[3][0],r_eye_pts[3][1]-w3],
+                                 [r_eye_pts[3][0]+s*w,r_eye_pts[3][1]]], axis=0)
+                                 
+
+    avg_r_pts_3 = shape2[20:22]
+    avg_r_pts_3 = np.append(avg_r_pts_3,[[points2[3][0],points2[3][1]-w],
                                  [points2[4][0]+w,points2[4][1]-w],
                                  [r_eye_pts2[2][0],r_eye_pts2[2][1]-w3],
                                  [r_eye_pts2[3][0],r_eye_pts2[3][1]-w3],
