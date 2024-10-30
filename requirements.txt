@@ -1,7 +1,7 @@
 streamlit==1.18.1
 cmake==3.25.2
 opencv-python-headless==4.9.0.80
-dlib-bin==19.24.2
+dlib-bin==19.24.6
 imutils==0.5.3
 numpy==1.26.4
 altair==4.0
